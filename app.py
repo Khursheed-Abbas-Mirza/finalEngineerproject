@@ -18,9 +18,10 @@ def predict_obesity(features):
 @app.route('/api/check',methods=["POST"])
 def check():
     data=request.get_json()
+    print(data)
     bmi=round(float(data['weight'])/(float(data['height'])/100)**2)
     gender=1 if data['gender']=='Male' else 2
-    cdata=[gender,int(data['Age']),data['height'],data['weight'],bmi]
+    cdata=[gender,int(data['age']),data['height'],data['weight'],bmi]
     predict=predict_obesity(cdata)
  
     return jsonify({"succuess":True,"obeseity_level":predict})
