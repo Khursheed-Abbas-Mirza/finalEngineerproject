@@ -35,111 +35,123 @@ def get_recommendations(age, height, weight, gender):
     
     # Simplified food names (10 per category) and exercises (7 per category)
     recommendations = {
-        "Underweight": {
-            "foods": [
-                "Peanut butter",
-                "Whole milk",
-                "Almonds",
-                "Avocado",
-                "Brown rice",
-                "Bananas",
-                "Cheese",
-                "Granola",
-                "Chicken thighs",
-                "Dried fruit"
-            ],
-            "exercises": [
-                "Weightlifting.gif",
-                "Push-ups.gif",
-                "Squats.gif",
-                "Pull-ups.gif",
-                "BenchPress.gif",
-                "Deadlifts.jpeg",
-                "Lunges.gif",
-            ],
-            "Goal": "Build muscle mass"
-        },
-        "Normal": {
-            "foods": [
-                "Grilled chicken",
-                "Quinoa",
-                "Sweet potatoes",
-                "Spinach",
-                "Salmon",
-                "Greek yogurt",
-                "Whole-grain bread",
-                "Broccoli",
-                "Olive oil",
-                "Eggs"
-            ],
-            "exercises": [
-                "BriskWalking.jpeg",
-                "Jogging.jpg",
-                "Cycling.jpeg",
-                "Squats.gif",
-                "Plank.jpeg",
-                "Yoga.jpeg",
-                "jumping-jacks.gif",
-            ],
-        "Goal":" Maintain fitness"
-        },
-        "Overweight": {
-            "foods": [
-                "Leafy greens",
-                "Lean turkey",
-                "Cucumber",
-                "Berries",
-                "Lentils",
-                "Chia seeds",
-                "Zucchini",
-                "Cauliflower rice",
-                "Chicken breast",
-                "Almond milk"
-            ],
-            "exercises": [
-                "Jogging.jpg",
-                "Cycling.jpeg",
-                "swimming.jpeg",
-                "stairclimbing.jpg",
-                "Burpees.gif",
-                "walkinglunges.gif",
-                "jumprope.gif",
-            ]
-                ,"Goal": "Burn calories"
-        },
-        "Obese": {
-            "foods": [
-                "Broccoli",
-                "Egg whites",
-                "Oats",
-                "Cauliflower",
-                "Tuna",
-                "Green beans",
-                "Apples",
-                "Kale",
-                "Turkey meatballs",
-                "Cottage cheese"
-            ],
-            "exercises": [
-                "walking.jpg",
-                "wateraerobics",
-                "seated-leg.gif",
-                "chairsquats.gif",
-                "armcircle.gif",
-                "stretch.gif",
-                "stepup.gif",
-            ],
-                "Goal": "Start slow"
-        }
+    "Underweight": {
+        "foods": [
+            "Peanut-butter.jpg",
+            "milk.jpg",
+            "almonds.jpeg",
+            "avacado.jpg",
+            "brown-rice.jpg",
+            "Bananas.jpeg",
+            "cheese.jpg",
+            "Granola.jpeg",
+            "Chicken-thighs.jpg",
+            "dried.jpg"
+        ],
+        "food_type": "Eat more healthy fats, proteins, and energy-rich foods like nuts, dairy, and lean meats to gain weight.",
+        "exercises": [
+            "Weightlifting.gif",
+            "Push-ups.gif",
+            "Squats.gif",
+            "Pull-ups.gif",
+            "BenchPress.gif",
+            "Deadlifts.jpeg",
+            "Lunges.gif",
+        ],
+        "exercise_type": "Focus on strength training and weight lifting to build muscle and gain healthy weight.",
+        "Goal": "Build muscle mass"
+    },
+    "Normal": {
+        "foods": [
+            "Grilledchicken.jpg",
+            "Quinoa.jpeg",
+            "sweet-potato.jpg",
+            "Spinach.jpg",
+            "Salmon.jpeg",
+            "Greek-yogurt.jpg",
+            "WholeGrainBread.jpg",
+            "Broccoli.jpeg",
+            "Oliveoil.jpg",
+            "Eggs.jpeg"
+        ],
+        "food_type": "Eat a mix of proteins, vegetables, and whole grains to stay healthy and fit.",
+        "exercises": [
+            "BriskWalking.jpeg",
+            "Jogging.jpg",
+            "Cycling.jpeg",
+            "Squats.gif",
+            "Plank.jpeg",
+            "Yoga.jpeg",
+            "jumping-jacks.gif",
+        ],
+        "exercise_type": "Maintain a mix of cardio, strength, and flexibility exercises for overall health.",
+        "Goal": "Maintain fitness"
+    },
+    "Overweight": {
+        "foods": [
+            "leefy.jpg",
+            "Leanturkey.jpeg",
+            "Cucumber.jpg",
+            "Berries.jpg",
+            "Lentils.jpg",
+            "Chiaseeds.jpg",
+            "Zucchini.jpeg",
+            "Cauliflower.jpg",
+            "Chicken-Breast.jpg",
+            "Almondmilk.jpeg"
+        ],
+        "food_type": "Eat more vegetables, lean meats, and fiber-rich foods while avoiding sugary and fried foods.",
+        "exercises": [
+            "Jogging.jpg",
+            "Cycling.jpeg",
+            "swimming.jpeg",
+            "stairclimbing.jpg",
+            "Burpees.gif",
+            "walkinglunges.gif",
+            "jumprope.gif",
+        ],
+        "exercise_type": "Increase cardio workouts like jogging, cycling, and swimming to burn excess fat.",
+        "Goal": "Burn calories"
+    },
+    "Obese": {
+        "foods": [
+            "Broccoli.jpeg",
+            "Eggwhites.jpg",
+            "Oats.jpeg",
+            "Cauliflower.jpg",
+            "Tuna-Fish.jpg",
+            "GreenBeans.jpeg",
+            "Apples.jpg",
+            "Kale.jpg",
+            "turkey-meatballs.jpg",
+            "Cottagecheese.jpeg"
+        ],
+        "food_type": "Focus on high-fiber foods like vegetables, fruits, and whole grains while reducing unhealthy fats and sugars.",
+        "exercises": [
+            "walking.jpg",
+            "wateraerobics.jpeg",
+            "seated-leg.gif",
+            "chairsquats.gif",
+            "armcircle.gif",
+            "stretch.gif",
+            "stepup.gif",
+        ],
+        "exercise_type": "Start with light exercises like walking, stretching, and water aerobics to avoid joint strain.",
+        "Goal": "Sustainable weight loss & health"
     }
+}
+
     
     return {
         "success": True,
         "category": standardized_category,
         "current_bmi": round(bmi, 1),
         "ideal_weight_range": f"{round(min_ideal_weight, 1)}–{round(max_ideal_weight, 1)} kg",
+        "food_type": recommendations[standardized_category]["food_type"],
         "food_recommendations": recommendations[standardized_category]["foods"],
-        "exercise_recommendations": recommendations[standardized_category]["exercises"]
+        "exercise_type": recommendations[standardized_category]["exercise_type"],
+        "exercise_recommendations": recommendations[standardized_category]["exercises"],
+        "goal": recommendations[standardized_category]["Goal"]
     }
 
 @app.route("/api/predict", methods=["POST"])
@@ -154,8 +166,6 @@ def predict():
     result = get_recommendations(age, int(height), int(weight), gender)
     return jsonify(result)
 
-if __name__ == "__main__":
-    app.run(debug=True)
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -163,6 +173,5 @@ def home():
 def catch_all(path):
     return render_template('index.html')
 
-
-if __name__=="__main__":
-    app.run(debug=True,host="localhost",port=5000)
+if __name__ == "__main__":
+    app.run(debug=True)
