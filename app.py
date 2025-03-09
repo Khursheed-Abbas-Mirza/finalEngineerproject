@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
 import joblib
 import numpy as np
 import warnings
+from flask_cors import CORS
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
+CORS(app)
 model = joblib.load("obesity.pkl")  # Load the new model
 
 def get_recommendations(age, height, weight, gender):
@@ -15,10 +17,10 @@ def get_recommendations(age, height, weight, gender):
     
     # Predict category
     input_data = np.array([[age, height, weight, gender, bmi]])
-    category = model.predict(input_data)[0]
-    
+    category = model.predict(input_data)
+    category = category[0]
     # Calculate ideal weight range
-    height_m = height / 100
+    height_m = height/100
     min_ideal_weight = 18.5 * (height_m * height_m)
     max_ideal_weight = 24.9 * (height_m * height_m)
     
@@ -47,15 +49,15 @@ def get_recommendations(age, height, weight, gender):
                 "Dried fruit"
             ],
             "exercises": [
-                "Weightlifting",
-                "Push-ups",
-                "Squats",
-                "Pull-ups",
-                "Bench Press",
-                "Deadlifts",
-                "Lunges",
-                "Goal: Build muscle mass"
-            ]
+                "Weightlifting.gif",
+                "Push-ups.gif",
+                "Squats.gif",
+                "Pull-ups.gif",
+                "BenchPress.gif",
+                "Deadlifts.jpeg",
+                "Lunges.gif",
+            ],
+            "Goal": "Build muscle mass"
         },
         "Normal": {
             "foods": [
@@ -71,15 +73,15 @@ def get_recommendations(age, height, weight, gender):
                 "Eggs"
             ],
             "exercises": [
-                "Brisk Walking",
-                "Jogging",
-                "Cycling",
-                "Squats",
-                "Plank",
-                "Yoga",
-                "Jumping Jacks",
-                "Goal: Maintain fitness"
-            ]
+                "BriskWalking.jpeg",
+                "Jogging.jpg",
+                "Cycling.jpeg",
+                "Squats.gif",
+                "Plank.jpeg",
+                "Yoga.jpeg",
+                "jumping-jacks.gif",
+            ],
+        "Goal":" Maintain fitness"
         },
         "Overweight": {
             "foods": [
@@ -95,15 +97,15 @@ def get_recommendations(age, height, weight, gender):
                 "Almond milk"
             ],
             "exercises": [
-                "Jogging",
-                "Cycling",
-                "Swimming",
-                "Stair Climbing",
-                "Burpees",
-                "Walking Lunges",
-                "Jump Rope",
-                "Goal: Burn calories"
+                "Jogging.jpg",
+                "Cycling.jpeg",
+                "swimming.jpeg",
+                "stairclimbing.jpg",
+                "Burpees.gif",
+                "walkinglunges.gif",
+                "jumprope.gif",
             ]
+                ,"Goal": "Burn calories"
         },
         "Obese": {
             "foods": [
@@ -119,19 +121,20 @@ def get_recommendations(age, height, weight, gender):
                 "Cottage cheese"
             ],
             "exercises": [
-                "Walking",
-                "Water Aerobics",
-                "Seated Leg Lifts",
-                "Chair Squats",
-                "Arm Circles",
-                "Gentle Stretching",
-                "Step-ups",
-                "Goal: Start slow"
-            ]
+                "walking.jpg",
+                "wateraerobics",
+                "seated-leg.gif",
+                "chairsquats.gif",
+                "armcircle.gif",
+                "stretch.gif",
+                "stepup.gif",
+            ],
+                "Goal": "Start slow"
         }
     }
     
     return {
+        "success": True,
         "category": standardized_category,
         "current_bmi": round(bmi, 1),
         "ideal_weight_range": f"{round(min_ideal_weight, 1)}–{round(max_ideal_weight, 1)} kg",
@@ -141,25 +144,24 @@ def get_recommendations(age, height, weight, gender):
 
 @app.route("/api/predict", methods=["POST"])
 def predict():
-    data = request.json
+    data = request.get_json()
     # Extract inputs, with BMI optional
     age = data["age"]
     height = data["height"]
     weight = data["weight"]
-    gender = data["gender"]  # 0 for Male, 1 for Female
-    # Optional, None if not provided
+    gender =0  if data["gender"]=='Male' else 1 # 0 for Male, 1 for Female
     
-    result = get_recommendations(age, height, weight, gender)
+    result = get_recommendations(age, int(height), int(weight), gender)
     return jsonify(result)
 
 if __name__ == "__main__":
     app.run(debug=True)
-# @app.route('/')
-# def home():
-#     return render_template('index.html')
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     return render_template('index.html')
+@app.route('/')
+def home():
+    return render_template('index.html')
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template('index.html')
 
 
 if __name__=="__main__":
